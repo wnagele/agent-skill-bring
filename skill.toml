@@ -1,0 +1,50 @@
+[skill]
+name = "bring"
+description = "Manage Bring! shopping lists — view, add, and remove grocery items"
+
+[runtime]
+type = "python"
+entry = "scripts/bring.py"
+
+[requirements]
+capabilities = ["NetConnect(*)"]
+pip = ["bring-api", "python-dotenv", "agent-skill-handler @ git+https://github.com/wnagele/agent-skill-handler.git"]
+
+[[requirements.env]]
+name = "BRING_EMAIL"
+description = "Bring! account email address"
+
+[[requirements.env]]
+name = "BRING_PASSWORD"
+description = "Bring! account password"
+secret = true
+
+[[tools.provided]]
+name = "bring_lists"
+description = "Show all shopping lists"
+input_schema = { type = "object", properties = {  } }
+
+[[tools.provided]]
+name = "bring_catalog"
+description = "List all available catalog items"
+input_schema = { type = "object", properties = {  } }
+
+[[tools.provided]]
+name = "bring_items"
+description = "Show items in a list"
+input_schema = { type = "object", properties = { list = { type = "string", description = "List name" } }, required = ["list"] }
+
+[[tools.provided]]
+name = "bring_add"
+description = "Add item to list"
+input_schema = { type = "object", properties = { list = { type = "string", description = "List name" }, item = { type = "string", description = "Item name" }, note = { type = "string", description = "Specification (quantity, variety, etc.)" }, urgent = { type = "boolean", description = "Mark as urgent" }, convenient = { type = "boolean", description = "Mark as buy if convenient" }, discounted = { type = "boolean", description = "Mark as buy if discounted" } }, required = ["list", "item"] }
+
+[[tools.provided]]
+name = "bring_purchased"
+description = "Mark item as purchased"
+input_schema = { type = "object", properties = { list = { type = "string", description = "List name" }, item = { type = "string", description = "Item name" }, note = { type = "string", description = "Specification to disambiguate" } }, required = ["list", "item"] }
+
+[[tools.provided]]
+name = "bring_remove"
+description = "Permanently remove item from list"
+input_schema = { type = "object", properties = { list = { type = "string", description = "List name" }, item = { type = "string", description = "Item name" }, note = { type = "string", description = "Specification to disambiguate" } }, required = ["list", "item"] }
