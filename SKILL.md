@@ -2,6 +2,16 @@
 name: bring
 description: Manage Bring! shopping lists - view, add, and remove grocery items from shared shopping lists. Use when the user wants to interact with their Bring! shopping list app, add groceries, check what's on the list, or remove items after shopping.
 metadata:
+  hermes:
+    required_environment_variables:
+      - name: BRING_EMAIL
+        prompt: "Bring! account email address"
+        help: "The email address you use to sign in to the Bring! app"
+        required_for: "authenticating to the Bring API"
+      - name: BRING_PASSWORD
+        prompt: "Bring! account password"
+        help: "The password for your Bring! account"
+        required_for: "authenticating to the Bring API"
   openclaw:
     requires:
       bins:
@@ -41,6 +51,17 @@ metadata:
 # Bring Shopping List Integration
 
 Manage Bring! shopping lists — view, add, and remove items.
+
+## Installation
+
+Create a virtualenv in the skill directory and install the required Python packages:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install bring-api python-dotenv "agent-skill-handler@git+https://github.com/wnagele/agent-skill-handler.git"
+```
+
+Invoke scripts with the venv interpreter (`.venv/bin/python3 scripts/bring.py ...`). If the packages are already installed on the system `python3`, you can call `python3 scripts/bring.py ...` directly.
 
 ## Setup
 
